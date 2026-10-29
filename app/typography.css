@@ -1,0 +1,232 @@
+/*
+ * Dilara Kızıldağ portfolio typography library.
+ * All sizes follow the agreed 4px scale. Desktop is the default variant;
+ * mobile overrides live in the single breakpoint at the end of this file.
+ */
+:root {
+  --type-display: clamp(72px, 9.2vw, 144px);
+  --type-h1: 60px;
+  --type-h2: 40px;
+  --type-h3: 28px;
+  --type-h4: 24px;
+  --type-hero-subtitle: 32px;
+  --type-lead: 22px;
+  --type-body: 18px;
+  --type-nav: 16px;
+  --type-caption: 12px;
+
+  --line-display: 112px;
+  --line-heading: 56px;
+  --line-subheading: 32px;
+  --line-body: 28px;
+  --line-caption: 20px;
+  --line-footer: 64px;
+  --tracking-heading: -0.04em;
+  --section-label-gap: 32px;
+}
+
+body {
+  font-size: var(--type-body);
+  line-height: var(--line-body);
+}
+
+nav,
+.about-nav {
+  font-size: var(--type-nav);
+  line-height: var(--line-body);
+}
+
+.hero-title h1 {
+  font-size: var(--type-display);
+  line-height: var(--line-display);
+}
+.hero-title .eyebrow {
+  font-size: var(--type-hero-subtitle);
+  line-height: var(--line-subheading);
+}
+.hero-quote {
+  font-size: var(--type-body);
+  line-height: var(--line-body);
+}
+
+.practice-copy h2,
+.section-title,
+.exhibitions h2,
+.editorial-heading h2,
+.gallery-series-heading h2,
+.about-exhibitions-heading h2 {
+  font-size: var(--type-h1);
+  line-height: var(--line-heading);
+  letter-spacing: var(--tracking-heading);
+}
+
+.about-story-content h2 {
+  font-size: var(--type-h1);
+  line-height: var(--line-heading);
+  letter-spacing: var(--tracking-heading);
+}
+
+.practice-copy .eyebrow,
+.series-heading .eyebrow,
+.feminine-heading .eyebrow,
+.editorial-heading > p,
+.exhibitions .exhibition-range,
+.about-exhibitions-heading > p {
+  font-size: var(--type-lead);
+  line-height: var(--line-body);
+}
+
+.practice-copy .eyebrow,
+.series-heading .eyebrow,
+.feminine-heading .eyebrow,
+.editorial-heading > p {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.exhibitions .exhibition-range,
+.about-exhibitions-heading > p {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* One shared distance between each section label and its heading. */
+.practice-copy h2 {
+  margin-top: var(--section-label-gap);
+}
+.series-heading .eyebrow,
+.feminine-kicker-row,
+.editorial-heading > p,
+.exhibitions .exhibition-range {
+  margin-bottom: var(--section-label-gap);
+}
+.about-exhibitions-layout {
+  gap: var(--section-label-gap);
+}
+
+.editorial-card-copy h3 {
+  font-size: var(--type-h3);
+  line-height: var(--line-subheading);
+}
+
+.about-biography h1,
+.exhibition-row span:nth-child(2),
+.about-exhibition-row cite {
+  font-size: var(--type-h4);
+  line-height: var(--line-subheading);
+}
+
+.exhibition-row span:nth-child(2),
+.about-exhibition-row cite {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-style: normal;
+}
+
+.about-section-label {
+  font-size: var(--type-body);
+}
+
+.practice-copy > p:not(.eyebrow),
+.statement p,
+.two-notes p,
+.feminine-intro,
+.gallery-series-description p,
+.about-copy p,
+.section-link,
+.editorial-card-copy p,
+.gallery-series-nav a,
+.footer-info,
+.exhibition-row,
+.about-exhibition-row,
+.lightbox-caption {
+  font-size: var(--type-body);
+  line-height: var(--line-body);
+  font-weight: 400;
+}
+
+.statement p span {
+  font-size: 104px;
+  line-height: 72px;
+}
+
+.practice-artwork figcaption,
+.practice-artwork figcaption cite,
+.gallery-wall-meta strong,
+.gallery-wall-meta span,
+.gallery-series-heading p,
+.series-work-caption,
+.lightbox-caption small,
+.footer-base {
+  font-size: var(--type-caption);
+  line-height: var(--line-caption);
+  font-weight: 400;
+}
+
+/* The featured artwork caption reads as supporting body copy on desktop. */
+@media (min-width: 901px) {
+  .practice-artwork figcaption,
+  .practice-artwork figcaption cite {
+    font-size: var(--type-body);
+    line-height: var(--line-body);
+  }
+}
+
+.footer-call {
+  font-size: 56px;
+  line-height: var(--line-footer);
+}
+.lightbox-arrow {
+  font-size: 32px;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --type-display: 56px;
+    --type-h1: 40px;
+    --type-h2: 32px;
+    --type-h3: 24px;
+    --type-h4: 20px;
+    --type-hero-subtitle: 20px;
+    --type-lead: 16px;
+    --type-body: 16px;
+    --line-display: 56px;
+    --line-heading: 40px;
+    --line-subheading: 28px;
+    --line-body: 24px;
+    --line-caption: 20px;
+    --line-footer: 32px;
+    --section-label-gap: 20px;
+  }
+
+  .about-section-label {
+    font-size: var(--type-caption);
+    line-height: var(--line-caption);
+  }
+  .series-work-caption {
+    font-size: var(--type-body);
+    line-height: var(--line-body);
+  }
+  .exhibition-row span:nth-child(3),
+  .exhibition-row span:nth-child(4),
+  .about-exhibition-row > span:nth-child(3),
+  .about-exhibition-row > span:nth-child(4) {
+    font-size: var(--type-caption);
+    line-height: var(--line-caption);
+  }
+  .footer-call {
+    font-size: 28px;
+  }
+  .lightbox-arrow {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  :root {
+    --line-display: 80px;
+  }
+}
