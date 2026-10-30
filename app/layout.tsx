@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { languageFrom } from "./language";
+import { siteUrl } from "./seo";
 import "./globals.css";
 import "./typography.css";
-
-const siteUrl = "https://dilara-kizildag-portfolio.leilamusaz.chatgpt.site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

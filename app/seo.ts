@@ -3,7 +3,19 @@ import type { Language } from "./language";
 import { series, englishArtworkTitles, type AvailableSeries } from "./gallery/series-data";
 import { defaultSeries, galleryHref } from "./gallery/series-routing";
 
-export const siteUrl = "https://dilara-kizildag-portfolio.leilamusaz.chatgpt.site";
+function resolveSiteUrl() {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+  if (explicit) return explicit;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return "https://dilara-kizildag-portfolio.leilamusaz.chatgpt.site";
+}
+
+export const siteUrl = resolveSiteUrl();
 export type SeoPath = "/" | "/about" | "/gallery";
 
 const copy = {

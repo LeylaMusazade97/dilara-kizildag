@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "./seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: "https://dilara-kizildag-portfolio.leilamusaz.chatgpt.site/sitemap.xml",
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }
