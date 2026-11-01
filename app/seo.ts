@@ -3,19 +3,15 @@ import type { Language } from "./language";
 import { series, englishArtworkTitles, type AvailableSeries } from "./gallery/series-data";
 import { defaultSeries, galleryHref } from "./gallery/series-routing";
 
-function resolveSiteUrl() {
-  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  if (explicit) return explicit;
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-  }
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  return "https://dilara-kizildag-portfolio.leilamusaz.chatgpt.site";
-}
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://dilarakizildag.com").replace(/\/$/, "");
+export const siteHost = new URL(siteUrl).host;
 
-export const siteUrl = resolveSiteUrl();
+const defaultOgImage = {
+  url: "/art/responsive/dilara-portrait-1024.webp",
+  width: 1024,
+  height: 1516,
+  alt: "Dilara Kızıldağ",
+};
 export type SeoPath = "/" | "/about" | "/gallery";
 
 const copy = {
@@ -59,12 +55,30 @@ export function seoUrl(path: SeoPath, language: Language): string {
 
 export function pageMetadata(path: SeoPath, language: Language): Metadata {
   const { title, description } = copy[path][language];
+  const url = seoUrl(path, language);
   return {
     title: { absolute: title },
     description,
+    robots: { index: true, follow: true },
     alternates: {
-      canonical: seoUrl(path, language),
-      languages: { tr: seoUrl(path, "tr"), en: seoUrl(path, "en") },
+      canonical: url,
+      languages: { tr: seoUrl(path, "tr"), en: seoUrl(path, "en"), "x-default": seoUrl(path, "tr") },
+    },
+    openGraph: {
+      type: "website",
+      locale: language === "en" ? "en_US" : "tr_TR",
+      alternateLocale: language === "en" ? ["tr_TR"] : ["en_US"],
+      url,
+      siteName: "Dilara Kızıldağ",
+      title,
+      description,
+      images: [defaultOgImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultOgImage.url],
     },
   };
 }
@@ -89,9 +103,26 @@ export function galleryMetadata(key: AvailableSeries, language: Language): Metad
   const descriptions = language === "en" ? content.descriptionEn : content.description;
   const description = key === "defter" ? defterSeoDescription[language] : key === "meyhane" ? meyhaneSeoDescription[language] : descriptions?.[0] ?? `${label}: ${content.works.map((work) => language === "en" ? (englishArtworkTitles[work.title] ?? work.title) : work.title).join("; ")}.`;
   const url = (lang: Language) => new URL(galleryHref(key, lang), siteUrl).href;
+  const title = `${label} | Dilara Kızıldağ`;
+  const pageUrl = url(language);
+  const artwork = content.works[0]?.src;
+  const images = artwork
+    ? [{ url: artwork.replace("/art/", "/art/responsive/").replace(/\.webp$/, "-1024.webp"), alt: label }]
+    : [defaultOgImage];
   return {
-    title: { absolute: `${label} | Dilara Kızıldağ` },
+    title: { absolute: title },
     description,
-    alternates: { canonical: url(language), languages: { tr: url("tr"), en: url("en") } },
+    robots: { index: true, follow: true },
+    alternates: { canonical: pageUrl, languages: { tr: url("tr"), en: url("en"), "x-default": url("tr") } },
+    openGraph: {
+      type: "website",
+      locale: language === "en" ? "en_US" : "tr_TR",
+      url: pageUrl,
+      siteName: "Dilara Kızıldağ",
+      title,
+      description,
+      images,
+    },
+    twitter: { card: "summary_large_image", title, description, images: [images[0].url] },
   };
 }

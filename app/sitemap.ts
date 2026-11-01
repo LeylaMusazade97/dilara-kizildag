@@ -11,9 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.8 },
   ];
   // Omit lastModified until an authoritative content-change date is available.
+  const lastModified = new Date("2026-11-01");
   const mainPages = pages.flatMap(({ path, priority }) =>
     (["tr", "en"] as const).map((language) => ({
       url: seoUrl(path, language),
+      lastModified,
       changeFrequency: "monthly" as const,
       priority,
     })),
@@ -21,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const seriesPages = seriesOrder.filter((key) => key !== defaultSeries).flatMap((key) =>
     (["tr", "en"] as const).map((language) => ({
       url: new URL(galleryHref(key, language), siteUrl).href,
+      lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
